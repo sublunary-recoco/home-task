@@ -1,0 +1,81 @@
+<view class="page-detail">
+  <view class="detail-header">
+    <view class="header-cover">
+      <text class="cover-emoji">{{recipe.cover || '🍳'}}</text>
+    </view>
+    <view class="header-info">
+      <view class="detail-name-row">
+        <view class="detail-name">{{recipe.name}}</view>
+        <view class="edit-badge" wx:if="{{recipe.creatorId === myUserId}}" bindtap="goEdit">编辑</view>
+      </view>
+      <view class="detail-tags">
+        <view wx:for="{{recipe.tags}}" wx:key="*this" class="detail-tag">{{item}}</view>
+      </view>
+      <view class="detail-badges">
+        <view class="badge">
+          <text class="badge-icon">⏱</text>
+          <text class="badge-text">{{recipe.cookTime}}分钟</text>
+        </view>
+        <view class="badge">
+          <text class="badge-icon">👥</text>
+          <text class="badge-text">{{recipe.servings}}人份</text>
+        </view>
+        <view class="badge">
+          <view wx:for="{{[1,2,3]}}" wx:key="*this" class="difficulty-star">
+            {{index < recipe.difficulty ? '⭐' : '☆'}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">
+      <text class="title-icon">🥬</text>
+      <text class="title-text">食材清单</text>
+    </view>
+    <view class="ingredient-list">
+      <view wx:for="{{recipe.ingredients}}" wx:key="index" class="ingredient-item">
+        <view class="ingredient-check {{item.checked ? 'checked' : ''}}" bindtap="onCheckIngredient" data-index="{{index}}">
+          <text wx:if="{{item.checked}}">✅</text>
+          <text wx:else>⬜</text>
+        </view>
+        <text class="ingredient-name">{{item.name}}</text>
+        <text class="ingredient-amount">{{item.amount || '适量'}}<text wx:if="{{item.unit}}">{{item.unit}}</text></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">
+      <text class="title-icon">👨‍🍳</text>
+      <text class="title-text">烹饪步骤</text>
+    </view>
+    <view wx:if="{{recipe.steps && recipe.steps.length > 0}}" class="step-list">
+      <view wx:for="{{recipe.steps}}" wx:key="index" class="step-item">
+        <view class="step-num-circle">{{index + 1}}</view>
+        <text class="step-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{recipe.tips}}" class="card">
+    <view class="section-title">
+      <text class="title-icon">💡</text>
+      <text class="title-text">小贴士</text>
+    </view>
+    <view class="tips-content">
+      <text>{{recipe.tips}}</text>
+    </view>
+  </view>
+
+  <view class="detail-bottom">
+    <button class="btn-cook btn-primary" bindtap="onStartCook">
+      🍳 开始烹饪
+    </button>
+    <view class="btn-fridge-link" bindtap="goToFridge">
+      <text class="fridge-link-icon">🧊</text>
+      <text>查看冰箱库存</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,206 @@
+.page-family {
+  padding-bottom: 60rpx;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.family-header {
+  padding: 60rpx 32rpx 30rpx;
+  text-align: center;
+}
+
+.family-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10rpx;
+}
+
+.family-subtitle {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+.tab-bar {
+  display: flex;
+  margin: 0 32rpx 24rpx;
+  background: var(--bg-card);
+  border-radius: var(--radius-round);
+  padding: 8rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  border-radius: var(--radius-round);
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.tab-item.active {
+  background: linear-gradient(135deg, #FF8FAB 0%, #FF6B8E 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(255, 143, 171, 0.3);
+}
+
+.tab-content {
+  padding: 0 32rpx;
+}
+
+.form-card {
+  margin: 0;
+}
+
+.form-item {
+  margin-bottom: 28rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  border: none;
+}
+
+.code-input {
+  text-transform: uppercase;
+  letter-spacing: 8rpx;
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.form-tip {
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.family-card {
+  margin: 0 32rpx;
+  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4ED 100%);
+  border: 2rpx solid var(--primary-light);
+}
+
+.family-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.invite-row {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16rpx 24rpx;
+  border-radius: var(--radius);
+}
+
+.invite-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.invite-code {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: 6rpx;
+  margin-right: 16rpx;
+}
+
+.copy-btn {
+  font-size: 24rpx;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.section {
+  margin-top: 30rpx;
+}
+
+.section-header {
+  padding: 0 32rpx;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.member-list {
+  padding: 0 32rpx;
+}
+
+.member-item {
+  margin: 0 0 16rpx 0;
+}
+
+.member-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: var(--secondary);
+  margin-right: 20rpx;
+  border: 3rpx solid var(--primary-light);
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  margin-right: 12rpx;
+}
+
+.tag-primary {
+  background: rgba(255, 143, 171, 0.15);
+  color: var(--primary-dark);
+  font-size: 22rpx;
+  padding: 6rpx 18rpx;
+}
+
+.member-score {
+  font-size: 24rpx;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.member-role-icon {
+  font-size: 40rpx;
+}
+
+.action-section {
+  padding: 40rpx 32rpx;
+}
+
+.action-section .btn-primary {
+  width: 100%;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.action-section .btn-ghost {
+  width: 100%;
+  text-align: center;
+  padding: 16rpx 0;
+}

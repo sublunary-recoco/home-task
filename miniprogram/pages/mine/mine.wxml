@@ -1,0 +1,103 @@
+<view class="page-mine">
+  <view class="user-header">
+    <view class="user-avatar-wrap">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+    </view>
+    <text class="user-name">{{userInfo.nickName || '小可爱'}}</text>
+    <view class="level-tag">Lv.{{userInfo.level || 1}}</view>
+  </view>
+
+  <view class="score-card card">
+    <text class="score-icon-big">❤️</text>
+    <view class="score-body">
+      <text class="score-num">{{userInfo.score || 0}}</text>
+      <text class="score-label">爱心值</text>
+    </view>
+    <text class="score-desc">完成任务可以获得爱心值哦～</text>
+  </view>
+
+  <view class="family-card card" wx:if="{{familyInfo}}" bindtap="goFamily">
+    <view class="flex-between">
+      <view class="flex-row">
+        <text class="family-icon">🏠</text>
+        <view class="family-text">
+          <text class="family-name">{{familyInfo.name}}</text>
+          <text class="family-members text-secondary">{{familyInfo.members.length}}位成员</text>
+        </view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="menu-card card" bindtap="goToInteraction">
+      <view class="flex-between">
+        <view class="flex-row menu-row">
+          <text class="menu-icon">💕</text>
+          <view class="menu-text">
+            <text class="menu-name">情侣互动</text>
+            <text class="menu-desc text-secondary">每日签到 · 夸夸</text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="menu-card card" bindtap="goToRank">
+      <view class="flex-between">
+        <view class="flex-row menu-row">
+          <text class="menu-icon">🏆</text>
+          <view class="menu-text">
+            <text class="menu-name">爱心榜</text>
+            <text class="menu-desc text-secondary">家庭积分排行榜</text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="menu-card card" bindtap="goToShop">
+      <view class="flex-between">
+        <view class="flex-row menu-row">
+          <text class="menu-icon">🛍️</text>
+          <view class="menu-text">
+            <text class="menu-name">积分商城</text>
+            <text class="menu-desc text-secondary">兑换专属奖励</text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📊 积分流水</text>
+    </view>
+
+    <block wx:if="{{logs.length > 0}}">
+      <view wx:for="{{logs}}" wx:key="_id" class="log-item card">
+        <view class="flex-between">
+          <view class="log-info">
+            <text class="log-remark">{{item.remark}}</text>
+            <text class="log-time text-hint">{{item.createdAt}}</text>
+          </view>
+          <text class="log-score {{item.score > 0 ? 'positive' : 'negative'}}">
+            {{item.score > 0 ? '+' : ''}}{{item.score}}
+          </text>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="empty-state">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">还没有积分记录</text>
+      <text class="empty-sub text-hint">去完成任务获取爱心值吧</text>
+    </view>
+  </view>
+
+  <view class="action-section">
+    <button class="btn-outline" bindtap="goFamily">🏠 家庭管理</button>
+    <button class="btn-ghost mt-20" bindtap="handleLogout">退出登录</button>
+  </view>
+</view>

@@ -1,0 +1,214 @@
+.page-mine {
+  padding-bottom: 40rpx;
+  background: var(--bg);
+}
+
+.user-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0 40rpx;
+}
+
+.user-avatar-wrap {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4rpx solid var(--primary-light);
+  box-shadow: 0 6rpx 20rpx rgba(255, 143, 171, 0.25);
+  margin-bottom: 20rpx;
+  background: white;
+}
+
+.user-avatar {
+  width: 100%;
+  height: 100%;
+  background: var(--secondary);
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10rpx;
+}
+
+.level-tag {
+  background: linear-gradient(135deg, #FF8FAB 0%, #FF6B8E 100%);
+  color: white;
+  font-size: 22rpx;
+  padding: 6rpx 22rpx;
+  border-radius: var(--radius-round);
+  font-weight: 600;
+}
+
+.score-card {
+  margin: 0 32rpx;
+  background: linear-gradient(135deg, #FF8FAB 0%, #FF6B8E 100%);
+  color: white;
+  text-align: center;
+  padding: 36rpx;
+}
+
+.score-icon-big {
+  font-size: 52rpx;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.score-body {
+  margin-bottom: 12rpx;
+}
+
+.score-num {
+  font-size: 56rpx;
+  font-weight: 700;
+  display: block;
+  line-height: 1.2;
+}
+
+.score-label {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+.score-desc {
+  font-size: 24rpx;
+  opacity: 0.75;
+}
+
+.family-card {
+  margin-top: 20rpx;
+  margin-left: 32rpx;
+  margin-right: 32rpx;
+}
+
+.family-icon {
+  font-size: 44rpx;
+  margin-right: 20rpx;
+}
+
+.family-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.family-name {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.family-members {
+  font-size: 24rpx;
+  margin-top: 4rpx;
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: var(--text-hint);
+}
+
+.section {
+  margin-top: 30rpx;
+}
+
+.section-header {
+  padding: 0 32rpx;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.log-item {
+  margin: 0 32rpx 12rpx 32rpx;
+}
+
+.log-info {
+  flex: 1;
+}
+
+.log-remark {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.log-time {
+  font-size: 24rpx;
+}
+
+.log-score {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.log-score.positive {
+  color: var(--primary-dark);
+}
+
+.log-score.negative {
+  color: var(--text-hint);
+}
+
+.action-section {
+  padding: 40rpx 32rpx;
+}
+
+.action-section .btn-outline {
+  width: 100%;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-section .btn-ghost {
+  width: 100%;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+}
+
+/* 功能入口菜单 */
+.menu-section {
+  margin-top: 30rpx;
+}
+
+.menu-card {
+  margin-top: 12rpx;
+  margin-left: 32rpx;
+  margin-right: 32rpx;
+}
+
+.menu-row {
+  gap: 20rpx;
+}
+
+.menu-icon {
+  font-size: 40rpx;
+  width: 56rpx;
+  text-align: center;
+}
+
+.menu-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.menu-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.menu-desc {
+  font-size: 24rpx;
+}

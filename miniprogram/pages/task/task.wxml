@@ -1,0 +1,110 @@
+<view class="page-task">
+  <view class="task-tabs">
+    <scroll-view scroll-x class="tabs-scroll">
+      <view class="tab {{currentTab === item.key ? 'active' : ''}}"
+        wx:for="{{tabs}}" wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="switchTab">
+        {{item.label}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="task-list">
+    <block wx:if="{{tasks.length > 0}}">
+      <view wx:for="{{tasks}}" wx:key="_id" class="task-card card">
+        <view class="task-header flex-between">
+          <view class="flex-row">
+            <image wx:if="{{item.creator}}" class="task-avatar" src="{{item.creator.avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+            <text class="task-creator-name text-secondary">{{item.creator ? item.creator.nickName : '未知'}} 发布</text>
+          </view>
+          <view class="tag tag-{{item.status}}">
+            {{item.status === 'pending' ? '待领取' : item.status === 'doing' ? '进行中' : item.status === 'review' ? '待确认' : item.status === 'done' ? '已完成' : '已取消'}}
+          </view>
+        </view>
+
+        <view class="task-body">
+          <text class="task-title">{{item.title}}</text>
+          <text wx:if="{{item.description}}" class="task-desc text-secondary">{{item.description}}</text>
+        </view>
+
+        <view class="task-meta flex-between">
+          <view class="flex-row">
+            <text class="task-score">❤️ +{{item.rewardScore}}</text>
+            <text wx:if="{{item.deadline}}" class="task-deadline text-hint">⏰ {{item.deadline}}</text>
+          </view>
+          <text wx:if="{{item.assignee}}" class="text-secondary text-sm">
+            执行人：{{item.assignee.nickName}}
+          </text>
+        </view>
+
+        <view class="task-actions">
+          <block wx:if="{{item.status === 'pending'}}">
+            <button class="btn-primary btn-sm" data-id="{{item._id}}" bindtap="handleTake">领取任务</button>
+            <button wx:if="{{item.creatorId === myUserId}}" class="btn-ghost btn-sm" data-id="{{item._id}}" data-task="{{item}}" bindtap="showEditModal">编辑</button>
+          </block>
+          <block wx:if="{{item.status === 'doing' && item.assigneeId === myUserId}}">
+            <button class="btn-primary btn-sm" data-id="{{item._id}}" bindtap="handleSubmit">提交任务</button>
+            <button class="btn-ghost btn-sm" data-id="{{item._id}}" bindtap="handleCancel">取消</button>
+          </block>
+          <block wx:if="{{item.status === 'review'}}">
+            <button class="btn-primary btn-sm" data-id="{{item._id}}" bindtap="handleApprove">确认完成</button>
+            <button class="btn-ghost btn-sm" data-id="{{item._id}}" bindtap="handleReject">驳回</button>
+          </block>
+          <block wx:if="{{item.status === 'done'}}">
+            <text class="done-text">🎉 已完成</text>
+          </block>
+          <block wx:if="{{item.status === 'cancel'}}">
+            <text class="cancel-text">已取消</text>
+          </block>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="empty-state">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无任务</text>
+      <text class="empty-sub text-hint">点击右下角发布新任务吧</text>
+    </view>
+  </view>
+
+  <view class="create-btn" bindtap="goCreate">
+    <text class="create-icon">＋</text>
+  </view>
+
+  <!-- 编辑任务弹窗 -->
+  <view class="modal-overlay" wx:if="{{showEdit}}" bindtap="hideEditModal"></view>
+  <view class="edit-sheet {{showEdit ? 'show' : ''}}">
+    <view class="edit-header">
+      <text class="edit-title">编辑任务</text>
+      <text class="edit-close" bindtap="hideEditModal">×</text>
+    </view>
+    <scroll-view scroll-y class="edit-body">
+      <view class="edit-field">
+        <text class="edit-field-label">任务标题</text>
+        <input class="edit-field-input" placeholder="输入任务标题" value="{{editForm.title}}" bindinput="onEditTitle" maxlength="50" />
+      </view>
+      <view class="edit-field">
+        <text class="edit-field-label">任务描述</text>
+        <textarea class="edit-field-textarea" placeholder="输入任务描述（选填）" value="{{editForm.description}}" bindinput="onEditDesc" maxlength="200" auto-height />
+      </view>
+      <view class="edit-field-row">
+        <view class="edit-field half">
+          <text class="edit-field-label">积分奖励</text>
+          <input class="edit-field-input" type="number" placeholder="0" value="{{editForm.rewardScore}}" bindinput="onEditScore" />
+        </view>
+        <view class="edit-field half">
+          <text class="edit-field-label">截止日期</text>
+          <picker mode="date" value="{{editForm.deadline}}" bindchange="onEditDeadline">
+            <view class="picker-input">
+              <text class="{{editForm.deadline ? '' : 'placeholder-text'}}">{{editForm.deadline || '选择日期'}}</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="edit-footer">
+      <button class="btn-primary" bindtap="handleEdit">保存修改</button>
+    </view>
+  </view>
+</view>

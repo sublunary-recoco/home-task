@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/login/login",
+    "pages/family/family",
+    "pages/task/task",
+    "pages/task-create/task-create",
+    "pages/recipe/recipe",
+    "pages/recipe-detail/recipe-detail",
+    "pages/recipe-create/recipe-create",
+    "pages/fridge/fridge",
+    "pages/interaction/interaction",
+    "pages/rank/rank",
+    "pages/shop/shop",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundColor": "#FFF8F5",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFF8F5",
+    "navigationBarTitleText": "煮理人",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#BBBBBB",
+    "selectedColor": "#FFB6C1",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/task/task",
+        "text": "任务",
+        "iconPath": "images/icons/business.png",
+        "selectedIconPath": "images/icons/business-active.png"
+      },
+      {
+        "pagePath": "pages/recipe/recipe",
+        "text": "菜单",
+        "iconPath": "images/icons/goods.png",
+        "selectedIconPath": "images/icons/goods-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/icons/usercenter.png",
+        "selectedIconPath": "images/icons/usercenter-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

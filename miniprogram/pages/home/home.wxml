@@ -1,0 +1,131 @@
+<view class="page-home">
+  <view class="header-section">
+    <view class="header-top flex-between">
+      <view>
+        <text class="greeting-text">{{greeting}}</text>
+        <text class="header-name">煮理人 🍳</text>
+      </view>
+      <view class="together-days">
+        <text class="days-count">{{togetherDays}}</text>
+        <text class="days-text">天</text>
+      </view>
+    </view>
+
+    <view class="couple-card">
+      <view class="couple-avatars">
+        <image class="couple-avatar" src="{{familyInfo && familyInfo.members && familyInfo.members[0] && familyInfo.members[0].avatarUrl ? familyInfo.members[0].avatarUrl : '/images/avatar.png'}}" mode="aspectFill" />
+        <text class="couple-heart">💝</text>
+        <image class="couple-avatar" src="{{familyInfo && familyInfo.members && familyInfo.members[1] && familyInfo.members[1].avatarUrl ? familyInfo.members[1].avatarUrl : '/images/avatar.png'}}" mode="aspectFill" />
+      </view>
+      <view class="couple-text">
+        <text class="couple-line-1">{{compliment || '爱是一起吃很多顿饭'}}</text>
+        <text class="couple-line-2" bindtap="goToInteraction">记录我们的每一天 ›</text>
+      </view>
+      <view class="checkin-btn-wrap">
+        <button class="checkin-btn {{checkedIn ? 'checked-in' : ''}}" bindtap="handleCheckIn" disabled="{{checkedIn}}">
+          <text class="checkin-icon">{{checkedIn ? '✅' : '📝'}}</text>
+          <text class="checkin-text">{{checkedIn ? '今日已签到' : '每日签到'}}</text>
+          <text wx:if="{{checkInStreak > 0}}" class="checkin-streak">连续{{checkInStreak}}天</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view class="quick-actions">
+    <view class="quick-action" bindtap="goToInteraction">
+      <text class="action-icon">💕</text>
+      <text class="action-label">情侣互动</text>
+    </view>
+    <view class="quick-action" bindtap="goToFridge">
+      <text class="action-icon">🧊</text>
+      <text class="action-label">我家冰箱</text>
+    </view>
+    <view class="quick-action" bindtap="goToRank">
+      <text class="action-icon">🏆</text>
+      <text class="action-label">排行榜</text>
+    </view>
+  </view>
+
+  <view class="score-card card" bindtap="goToMine">
+    <view class="score-content flex-between">
+      <view class="score-left flex-row">
+        <text class="score-icon">❤️</text>
+        <view class="score-texts">
+          <text class="score-label">今日爱心值</text>
+          <text class="score-sub">完成任务可获得</text>
+        </view>
+      </view>
+      <view class="score-right">
+        <text class="score-value">+{{todayScore}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header flex-between">
+      <text class="section-title">📋 今日任务</text>
+      <text class="section-more" bindtap="goToTask">查看全部 ›</text>
+    </view>
+    <view wx:if="{{todayTasks.length > 0}}" class="task-list">
+      <view wx:for="{{todayTasks}}" wx:key="_id" class="task-item card" bindtap="goToTaskDetail" data-id="{{item._id}}">
+        <view class="task-emoji">{{item.emoji || '🍳'}}</view>
+        <view class="task-info">
+          <view class="task-title">{{item.title}}</view>
+          <view class="task-meta flex-between">
+            <text class="task-points">+{{item.rewardScore}}积分</text>
+            <view class="tag tag-{{item.status}}">
+              {{item.status === 'pending' ? '待领取' : item.status === 'doing' ? '进行中' : item.status === 'review' ? '待确认' : item.status === 'done' ? '已完成' : '已取消'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-state">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">今天还没有任务哦～</text>
+      <text class="empty-sub text-hint">去发布一个任务吧</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header flex-between">
+      <text class="section-title">🍳 今日晚饭推荐</text>
+      <text class="section-more" bindtap="goToRecipe">查看菜谱 ›</text>
+    </view>
+
+    <view wx:if="{{recommendations.length > 0}}">
+      <block wx:for="{{recommendations}}" wx:key="recipe._id">
+        <view wx:if="{{index < 3}}" class="dinner-card card" bindtap="goToRecipe" data-index="{{index}}">
+          <view class="dinner-rank rank-{{index + 1}}">{{index + 1}}</view>
+          <view class="dinner-info">
+            <text class="dinner-name">{{item.recipe.name}}</text>
+            <text class="dinner-desc text-secondary">
+              <text wx:if="{{item.usingExpiringItems.length > 0}}">🔥 清库存推荐：{{item.usingExpiringItems[0]}}快过期了</text>
+              <text wx:else>匹配度 {{item.matchRate}}%</text>
+            </text>
+            <view class="dinner-tags flex-row">
+              <view class="dinner-tag flex-row">
+                <text>⏱️</text>
+                <text>{{item.recipe.cookTime || 30}}分钟</text>
+              </view>
+              <view class="dinner-tag flex-row">
+                <text>🧺</text>
+                <text>{{item.missingIngredients.length === 0 ? '食材齐全' : '缺' + item.missingIngredients.length + '种食材'}}</text>
+              </view>
+              <view class="dinner-tag flex-row" wx:if="{{item.recipe.difficulty}}">
+                <text>{{item.recipe.difficulty === 1 ? '⭐' : item.recipe.difficulty === 2 ? '⭐⭐' : '⭐⭐⭐'}}</text>
+                <text>{{item.recipe.difficulty === 1 ? '简单' : item.recipe.difficulty === 2 ? '中等' : '困难'}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view wx:else class="empty-state">
+      <text class="empty-icon">🍽️</text>
+      <text class="empty-text">还没有菜谱哦</text>
+      <text class="empty-sub text-hint">先去添加菜谱和食材吧～</text>
+    </view>
+  </view>
+</view>

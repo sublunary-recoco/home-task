@@ -1,0 +1,142 @@
+<view class="page-shop">
+
+  <!-- 积分余额 -->
+  <view class="balance-card">
+    <view class="balance-bg"></view>
+    <view class="balance-content">
+      <text class="balance-icon">❤️</text>
+      <view class="balance-info">
+        <text class="balance-label">我的爱心值</text>
+        <text class="balance-num">{{userScore}}</text>
+      </view>
+      <view class="balance-desc">完成任务、每日签到获取爱心值</view>
+    </view>
+  </view>
+
+  <!-- 功能区 -->
+  <view class="shop-actions">
+    <button class="action-btn" bindtap="showAdd">
+      <text class="action-btn-icon">➕</text>
+      <text class="action-btn-text">添加商品</text>
+    </button>
+    <button class="action-btn secondary" bindtap="showRedeemHistory">
+      <text class="action-btn-icon">📋</text>
+      <text class="action-btn-text">兑换记录</text>
+    </button>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="section-header flex-between">
+    <text class="section-title">🎁 兑换商城</text>
+    <text class="section-hint">共{{items.length}}件</text>
+  </view>
+
+  <view wx:if="{{items.length > 0}}" class="shop-grid">
+    <view wx:for="{{items}}" wx:key="_id" class="shop-card">
+      <!-- 删除按钮 -->
+      <view class="card-delete" bindtap="handleDelete" data-item="{{item}}">
+        <text>×</text>
+      </view>
+
+      <view class="card-icon-wrap">
+        <text class="card-icon">{{item.icon || '🎁'}}</text>
+      </view>
+
+      <text class="card-name">{{item.name}}</text>
+
+      <view class="card-cost">
+        <text class="cost-icon">❤️</text>
+        <text class="cost-num">{{item.cost}}</text>
+      </view>
+
+      <button
+        class="redeem-btn {{userScore < item.cost ? 'disabled' : ''}}"
+        bindtap="handleRedeem"
+        data-item="{{item}}"
+        disabled="{{userScore < item.cost}}"
+      >
+        {{userScore >= item.cost ? '立即兑换' : '爱心值不足'}}
+      </button>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <text class="empty-icon">🛍️</text>
+    <text class="empty-text">商城还没有商品</text>
+    <text class="empty-sub text-hint">点击上方添加商品吧~</text>
+  </view>
+
+  <!-- 添加商品弹窗 -->
+  <view class="modal-overlay" wx:if="{{showAddModal}}" bindtap="hideAdd"></view>
+  <view class="modal-sheet {{showAddModal ? 'show' : ''}}">
+    <view class="modal-header">
+      <text class="modal-title">添加兑换商品</text>
+      <text class="modal-close" bindtap="hideAdd">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <text class="form-label">商品名称</text>
+        <input
+          class="form-input"
+          placeholder="例如：洗碗券、按摩券..."
+          value="{{addForm.name}}"
+          bindinput="onNameInput"
+          maxlength="20"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">所需积分</text>
+        <input
+          class="form-input"
+          type="number"
+          placeholder="需要多少爱心值"
+          value="{{addForm.cost}}"
+          bindinput="onCostInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">选择图标</text>
+        <view class="icon-picker">
+          <view
+            wx:for="{{iconOptions}}"
+            wx:key="*this"
+            class="icon-option {{addForm.icon === item ? 'selected' : ''}}"
+            bindtap="selectIcon"
+            data-icon="{{item}}"
+          >{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="btn-primary" bindtap="handleCreate">确认添加</button>
+    </view>
+  </view>
+
+  <!-- 兑换记录弹窗 -->
+  <view class="modal-overlay" wx:if="{{showRedeemLogs}}" bindtap="hideRedeemLogs"></view>
+  <view class="modal-sheet {{showRedeemLogs ? 'show' : ''}}">
+    <view class="modal-header">
+      <text class="modal-title">兑换记录</text>
+      <text class="modal-close" bindtap="hideRedeemLogs">×</text>
+    </view>
+    <view class="modal-body">
+      <view wx:if="{{redeemLogs.length > 0}}">
+        <view wx:for="{{redeemLogs}}" wx:key="_id" class="redeem-log-item">
+          <view class="redeem-log-left">
+            <text class="redeem-log-name">{{item.itemName}}</text>
+            <text class="redeem-log-time">{{item.createdAt}}</text>
+          </view>
+          <text class="redeem-log-cost">-{{item.cost}} ❤️</text>
+        </view>
+      </view>
+      <view wx:else class="empty-state" style="padding: 60rpx 0;">
+        <text class="empty-text">暂无兑换记录</text>
+      </view>
+    </view>
+  </view>
+
+</view>

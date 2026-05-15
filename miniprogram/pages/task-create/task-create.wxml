@@ -1,0 +1,34 @@
+<view class="page-task-create">
+  <view class="form-card card">
+    <view class="form-item">
+      <text class="form-label">任务标题 *</text>
+      <input class="form-input" placeholder="比如：洗碗、拖地、取快递" value="{{title}}" bindinput="onTitleInput" maxlength="50" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">任务描述</text>
+      <textarea class="form-textarea" placeholder="详细描述一下任务内容吧～" value="{{description}}" bindinput="onDescInput" maxlength="200" />
+    </view>
+
+    <view class="form-row">
+      <view class="form-item form-half">
+        <text class="form-label">爱心值奖励 ❤️</text>
+        <input class="form-input" type="number" placeholder="0" value="{{rewardScore}}" bindinput="onScoreInput" />
+      </view>
+      <view class="form-item form-half">
+        <text class="form-label">截止日期</text>
+        <picker mode="date" value="{{deadline}}" bindchange="onDeadlineChange">
+          <view class="picker-value {{deadline ? '' : 'placeholder'}}">
+            {{deadline || '选择日期'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-area">
+    <button class="btn-primary" bindtap="handleCreate" loading="{{loading}}">
+      发布任务 ✨
+    </button>
+  </view>
+</view>

@@ -1,0 +1,42 @@
+<view class="page-login">
+  <view class="login-bg">
+    <view class="login-decoration">
+      <view class="deco-bubble deco-1"></view>
+      <view class="deco-bubble deco-2"></view>
+      <view class="deco-bubble deco-3"></view>
+    </view>
+
+    <view class="login-content">
+      <view class="login-logo">
+        <text class="logo-icon">🧸</text>
+        <text class="logo-cat">🐻</text>
+      </view>
+      <view class="login-title">煮理人</view>
+      <view class="login-subtitle">和你一起，把小日子经营成诗</view>
+      
+      <view class="login-features">
+        <view class="feature-item">
+          <text class="feature-icon">📋</text>
+          <text class="feature-text">情侣家务 · 简单分配</text>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">🍳</text>
+          <text class="feature-text">菜单冰箱 · 智慧推荐</text>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">❤️</text>
+          <text class="feature-text">爱心积分 · 甜蜜互动</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="login-bottom">
+      <button class="login-btn btn-primary" bindtap="handleLogin" loading="{{loading}}">
+        微信一键登录
+      </button>
+      <view class="login-agreement">
+        <text class="text-hint">登录即同意《用户协议》和《隐私政策》</text>
+      </view>
+    </view>
+  </view>
+</view>

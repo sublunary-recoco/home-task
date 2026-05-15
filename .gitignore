@@ -1,0 +1,25 @@
+# 微信小程序云开发项目
+
+# 依赖
+node_modules/
+
+# 个人开发者工具配置（含本地路径、热重载等个人设置）
+project.private.config.json
+
+# Claude Code 内部文件
+.claude/
+
+# 云函数 node_modules（云端安装依赖）
+cloudfunctions/*/node_modules/
+
+# 日志
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# 操作系统
+.DS_Store
+Thumbs.db

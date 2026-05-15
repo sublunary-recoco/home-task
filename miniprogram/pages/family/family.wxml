@@ -1,0 +1,87 @@
+<view class="page-family">
+  <view class="family-header">
+    <text class="family-title">🏠 我的小家</text>
+    <text class="family-subtitle">和爱的人一起经营生活</text>
+  </view>
+
+  <block wx:if="{{!familyInfo}}">
+    <view class="tab-bar">
+      <view class="tab-item {{currentTab === 'create' ? 'active' : ''}}" data-tab="create" bindtap="switchTab">
+        创建小家
+      </view>
+      <view class="tab-item {{currentTab === 'join' ? 'active' : ''}}" data-tab="join" bindtap="switchTab">
+        加入小家
+      </view>
+    </view>
+
+    <view wx:if="{{currentTab === 'create'}}" class="tab-content">
+      <view class="form-card card">
+        <view class="form-item">
+          <text class="form-label">小家名字</text>
+          <input class="form-input" placeholder="比如：我们的甜蜜小屋" value="{{familyName}}" bindinput="onFamilyNameInput" maxlength="20" />
+        </view>
+        <view class="form-tip text-hint">💡 给你们的爱巢取一个温暖的名字吧</view>
+        <button class="btn-primary mt-30" bindtap="handleCreateFamily" loading="{{loading}}">
+          创建我们的小家 🏠
+        </button>
+      </view>
+    </view>
+
+    <view wx:if="{{currentTab === 'join'}}" class="tab-content">
+      <view class="form-card card">
+        <view class="form-item">
+          <text class="form-label">邀请码</text>
+          <input class="form-input code-input" placeholder="输入6位邀请码" value="{{inviteCodeInput}}" bindinput="onInviteCodeInput" maxlength="6" />
+        </view>
+        <view class="form-tip text-hint">💡 让你的TA分享邀请码给你</view>
+        <button class="btn-primary mt-30" bindtap="handleJoinFamily" loading="{{loading}}">
+          加入TA的小家 💕
+        </button>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="family-card card">
+      <view class="family-info">
+        <text class="family-name">{{familyInfo.name}}</text>
+        <view class="invite-row flex-row" bindtap="copyInviteCode">
+          <text class="invite-label">邀请码：</text>
+          <text class="invite-code">{{familyInfo.inviteCode}}</text>
+          <text class="copy-btn">📋 复制</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">👥 家庭成员</text>
+      </view>
+      <view class="member-list">
+        <view wx:for="{{familyInfo.members}}" wx:key="userId" class="member-item card">
+          <view class="flex-between">
+            <view class="flex-row">
+              <image class="member-avatar" src="{{item.avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+              <view class="member-info">
+                <view class="flex-row">
+                  <text class="member-name">{{item.nickName}}</text>
+                  <view wx:if="{{item.role === 'owner'}}" class="tag tag-primary">家长</view>
+                </view>
+                <text class="member-score text-secondary">❤️ {{item.score || 0}} 爱心值</text>
+              </view>
+            </view>
+            <view class="member-role-icon">
+              <text wx:if="{{item.role === 'owner'}}">👑</text>
+              <text wx:else>💕</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-section">
+      <button class="btn-primary" bindtap="goHome">进入小家 🏠</button>
+      <button class="btn-ghost mt-20" bindtap="handleLeaveFamily">离开小家</button>
+    </view>
+  </block>
+</view>

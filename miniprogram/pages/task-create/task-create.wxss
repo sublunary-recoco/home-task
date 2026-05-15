@@ -1,0 +1,75 @@
+.page-task-create {
+  padding-bottom: 60rpx;
+}
+
+.form-card {
+  margin: 0;
+}
+
+.form-item {
+  margin-bottom: 28rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 180rpx;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 24rpx;
+}
+
+.form-half {
+  flex: 1;
+}
+
+.picker-value {
+  width: 100%;
+  height: 88rpx;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.picker-value.placeholder {
+  color: #CCCCCC;
+}
+
+.submit-area {
+  padding: 40rpx 24rpx;
+}
+
+.submit-area .btn-primary {
+  width: 100%;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+  font-weight: 600;
+}

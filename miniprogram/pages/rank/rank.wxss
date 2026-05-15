@@ -1,0 +1,319 @@
+/* pages/rank/rank.wxss */
+
+.page-rank {
+  background: linear-gradient(175deg, #FFF8F9 0%, #FFF5F7 50%, #FFF0F5 100%);
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 顶部标题 */
+.rank-hero {
+  text-align: center;
+  padding: 48rpx 32rpx 32rpx;
+}
+
+.hero-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10rpx;
+}
+
+.hero-sub {
+  font-size: 26rpx;
+  color: var(--text-hint);
+  letter-spacing: 2rpx;
+}
+
+/* 时间段切换 */
+.period-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 0 32rpx 32rpx;
+}
+
+.period-tab {
+  padding: 16rpx 40rpx;
+  border-radius: var(--radius-round);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 28rpx;
+  font-weight: 500;
+  border: 2rpx solid var(--border-light);
+  transition: all 0.25s ease;
+}
+
+.period-tab.active {
+  background: linear-gradient(135deg, #FF8FAB 0%, #FF6B8E 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6rpx 16rpx rgba(255, 143, 171, 0.3);
+}
+
+/* 前三名领奖台 */
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 20rpx 24rpx 0;
+  margin-bottom: 12rpx;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 220rpx;
+}
+
+.podium-item.first { order: 2; }
+.podium-item.second { order: 1; }
+.podium-item.third { order: 3; }
+
+/* 头像 */
+.podium-avatar-wrap {
+  position: relative;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 12rpx;
+}
+
+.podium-item.first .podium-avatar-wrap {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.podium-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4rpx solid white;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.1);
+  background: var(--bg-light);
+}
+
+.crown-glow {
+  position: absolute;
+  top: -16rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 40rpx;
+  background: radial-gradient(ellipse, rgba(255, 215, 0, 0.5) 0%, transparent 70%);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+
+.podium-crown {
+  position: absolute;
+  top: -30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40rpx;
+  animation: crownBounce 2s ease-in-out infinite;
+}
+
+@keyframes crownBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8rpx); }
+}
+
+.podium-medal {
+  position: absolute;
+  bottom: -8rpx;
+  right: -8rpx;
+  font-size: 32rpx;
+}
+
+.podium-item.first .podium-medal {
+  font-size: 40rpx;
+}
+
+.podium-name {
+  font-size: 26rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* 分数 */
+.podium-score-wrap {
+  padding: 8rpx 24rpx;
+  border-radius: var(--radius-round);
+  margin-bottom: 12rpx;
+}
+
+.gold-bg { background: linear-gradient(135deg, #FFD93D, #FFB800); }
+.silver-bg { background: linear-gradient(135deg, #C0C0C0, #A0A0A0); }
+.bronze-bg { background: linear-gradient(135deg, #D4A574, #B8860B); }
+
+.podium-score {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: white;
+}
+
+/* 领奖台柱子 */
+.podium-bar {
+  width: 100%;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.gold-bar {
+  height: 100rpx;
+  background: linear-gradient(to top, #FFE44D, #FFD93D);
+  box-shadow: 0 -4rpx 12rpx rgba(255, 184, 0, 0.2);
+}
+
+.silver-bar {
+  height: 70rpx;
+  background: linear-gradient(to top, #D4D4D4, #C0C0C0);
+  box-shadow: 0 -4rpx 12rpx rgba(160, 160, 160, 0.2);
+}
+
+.bronze-bar {
+  height: 50rpx;
+  background: linear-gradient(to top, #C9A06C, #D4A574);
+  box-shadow: 0 -4rpx 12rpx rgba(184, 134, 11, 0.2);
+}
+
+/* 完整排名列表 */
+.rank-list {
+  padding: 20rpx 32rpx;
+}
+
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 10rpx;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.03);
+  border: 1rpx solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.rank-item.top-1 {
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4rpx 16rpx rgba(255, 215, 0, 0.15);
+}
+
+.rank-item.top-2 {
+  border-color: rgba(192, 192, 192, 0.4);
+}
+
+.rank-item.top-3 {
+  border-color: rgba(212, 165, 116, 0.4);
+}
+
+.rank-num-wrap {
+  width: 56rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.rank-medal-text {
+  font-size: 36rpx;
+}
+
+.rank-num {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-hint);
+}
+
+.rank-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  border: 2rpx solid white;
+  box-shadow: 0 3rpx 10rpx rgba(0, 0, 0, 0.08);
+  background: var(--bg-light);
+  flex-shrink: 0;
+}
+
+.rank-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.rank-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.rank-level {
+  font-size: 22rpx;
+  color: var(--primary-dark);
+  background: var(--secondary);
+  padding: 2rpx 14rpx;
+  border-radius: var(--radius-round);
+  display: inline-block;
+  width: fit-content;
+}
+
+.rank-score-wrap {
+  flex-shrink: 0;
+}
+
+.rank-score {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* 我的排名 */
+.my-rank-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 24rpx 32rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+  border-top: 1rpx solid var(--border-light);
+  z-index: 10;
+}
+
+.my-rank-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #FFF0F5, #FFE4ED);
+  padding: 20rpx 28rpx;
+  border-radius: var(--radius);
+}
+
+.my-rank-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.my-rank-num {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 120rpx 0;
+}

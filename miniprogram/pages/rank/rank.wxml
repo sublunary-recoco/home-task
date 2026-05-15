@@ -1,0 +1,114 @@
+<view class="page-rank">
+
+  <!-- 顶部标题 -->
+  <view class="rank-hero">
+    <text class="hero-title">🏆 爱心榜</text>
+    <text class="hero-sub">用爱经营，用心生活</text>
+  </view>
+
+  <!-- 时间段切换 -->
+  <view class="period-tabs">
+    <view
+      class="period-tab {{period === 'week' ? 'active' : ''}}"
+      bindtap="switchPeriod"
+      data-period="week"
+    >本周</view>
+    <view
+      class="period-tab {{period === 'month' ? 'active' : ''}}"
+      bindtap="switchPeriod"
+      data-period="month"
+    >本月</view>
+    <view
+      class="period-tab {{period === 'total' ? 'active' : ''}}"
+      bindtap="switchPeriod"
+      data-period="total"
+    >总榜</view>
+  </view>
+
+  <!-- 前三名领奖台 -->
+  <view class="podium" wx:if="{{rankings.length >= 2}}">
+    <!-- 第二名 -->
+    <view class="podium-item second" wx:if="{{rankings[1]}}">
+      <view class="podium-avatar-wrap silver">
+        <image class="podium-avatar" src="{{rankings[1].avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+        <text class="podium-medal">🥈</text>
+      </view>
+      <text class="podium-name">{{rankings[1].nickName}}</text>
+      <view class="podium-score-wrap silver-bg">
+        <text class="podium-score">{{rankings[1].score}}</text>
+      </view>
+      <view class="podium-bar silver-bar"></view>
+    </view>
+
+    <!-- 第一名 -->
+    <view class="podium-item first" wx:if="{{rankings[0]}}">
+      <view class="podium-avatar-wrap gold">
+        <view class="crown-glow"></view>
+        <image class="podium-avatar" src="{{rankings[0].avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+        <text class="podium-crown">👑</text>
+        <text class="podium-medal">🥇</text>
+      </view>
+      <text class="podium-name">{{rankings[0].nickName}}</text>
+      <view class="podium-score-wrap gold-bg">
+        <text class="podium-score">{{rankings[0].score}}</text>
+      </view>
+      <view class="podium-bar gold-bar"></view>
+    </view>
+
+    <!-- 第三名 -->
+    <view class="podium-item third" wx:if="{{rankings[2]}}">
+      <view class="podium-avatar-wrap bronze">
+        <image class="podium-avatar" src="{{rankings[2].avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+        <text class="podium-medal">🥉</text>
+      </view>
+      <text class="podium-name">{{rankings[2].nickName}}</text>
+      <view class="podium-score-wrap bronze-bg">
+        <text class="podium-score">{{rankings[2].score}}</text>
+      </view>
+      <view class="podium-bar bronze-bar"></view>
+    </view>
+  </view>
+
+  <!-- 完整排名列表 -->
+  <view class="rank-list">
+    <view
+      wx:for="{{rankings}}"
+      wx:key="userId"
+      class="rank-item {{index === 0 ? 'top-1' : index === 1 ? 'top-2' : index === 2 ? 'top-3' : ''}}"
+    >
+      <view class="rank-num-wrap">
+        <text wx:if="{{index === 0}}" class="rank-medal-text">🥇</text>
+        <text wx:elif="{{index === 1}}" class="rank-medal-text">🥈</text>
+        <text wx:elif="{{index === 2}}" class="rank-medal-text">🥉</text>
+        <text wx:else class="rank-num">{{index + 1}}</text>
+      </view>
+
+      <image class="rank-avatar" src="{{item.avatarUrl || '/images/avatar.png'}}" mode="aspectFill" />
+
+      <view class="rank-info">
+        <text class="rank-name">{{item.nickName}}</text>
+        <text class="rank-level">Lv.{{item.level || 1}}</text>
+      </view>
+
+      <view class="rank-score-wrap">
+        <text class="rank-score">❤️ {{item.score}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的排名 -->
+  <view class="my-rank-bar" wx:if="{{myRank > 0}}">
+    <view class="my-rank-content">
+      <text class="my-rank-label">我的排名</text>
+      <text class="my-rank-num">第 {{myRank}} 名</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{rankings.length === 0 && !loading}}" class="empty-state">
+    <text class="empty-icon">🏆</text>
+    <text class="empty-text">暂无排名数据</text>
+    <text class="empty-sub text-hint">去完成任务获取爱心值吧</text>
+  </view>
+
+</view>

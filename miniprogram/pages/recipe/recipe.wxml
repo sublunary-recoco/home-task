@@ -1,0 +1,63 @@
+<view class="page-recipe">
+  <view class="recipe-search" bindtap="onSearchTap">
+    <text class="search-icon">🔍</text>
+    <text class="search-placeholder">搜索菜谱或食材...</text>
+  </view>
+
+  <scroll-view class="category-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="tabs-inner">
+      <view
+        class="tab-item {{activeCategory === '' ? 'tab-active' : ''}}"
+        bindtap="onCategoryChange"
+        data-category=""
+      >全部</view>
+      <view
+        wx:for="{{categories}}"
+        wx:key="value"
+        class="tab-item {{activeCategory === item.value ? 'tab-active' : ''}}"
+        bindtap="onCategoryChange"
+        data-category="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{recipes.length > 0}}" class="recipe-grid">
+    <view
+      wx:for="{{recipes}}"
+      wx:key="_id"
+      class="recipe-card"
+      bindtap="onRecipeTap"
+      data-id="{{item._id}}"
+    >
+      <view class="recipe-cover">
+        <text class="cover-emoji">{{item.cover || '🍳'}}</text>
+        <view class="recipe-tags">
+          <view wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="recipe-mini-tag">{{tag}}</view>
+        </view>
+      </view>
+      <view class="recipe-info">
+        <view class="recipe-name">{{item.name}}</view>
+        <view class="recipe-meta">
+          <view class="meta-item">
+            <text class="meta-dot" wx:for="{{[1,2,3]}}" wx:key="*this">
+              {{index < item.difficulty ? '⭐' : '☆'}}
+            </text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">⏱</text>
+            <text class="meta-text">{{item.cookTime}}分钟</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <text class="empty-icon">📖</text>
+    <text class="empty-text">还没有菜谱，一起创建吧</text>
+  </view>
+
+  <view class="fab" bindtap="onAddTap">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

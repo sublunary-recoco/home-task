@@ -1,0 +1,99 @@
+<view class="page-fridge">
+  <view class="fridge-header">
+    <view>
+      <text class="fridge-title">🧊 我家冰箱</text>
+      <text class="fridge-title-hint">  {{totalCount}}种食材</text>
+    </view>
+    <view class="fridge-add-btn" bindtap="onAddTap">
+      <text class="add-btn-icon">+</text>
+    </view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="category-inner">
+      <view
+        wx:for="{{categories}}"
+        wx:key="value"
+        class="cat-item {{activeCategory === item.value ? 'cat-active' : ''}}"
+        bindtap="onCategoryChange"
+        data-category="{{item.value}}"
+      >{{item.icon}} {{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{items.length > 0}}" class="fridge-items">
+    <view wx:for="{{items}}" wx:key="_id" class="item-card">
+      <view class="item-icon">
+        <text>{{item.emoji || '🥬'}}</text>
+      </view>
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-meta">
+          <text class="item-qty">{{item.quantity}}{{item.unit}}</text>
+          <text class="item-category-badge">{{item.category}}</text>
+          <text wx:if="{{item.expiryDate}}" class="item-expiry {{item.isExpiring ? 'expiring' : ''}}">🗓 {{item.expiryDate}}</text>
+        </view>
+      </view>
+      <view class="item-actions">
+        <view class="qty-control">
+          <view class="qty-btn" bindtap="onDecrease" data-id="{{item._id}}">−</view>
+          <text class="qty-num">{{item.quantity}}</text>
+          <view class="qty-btn" bindtap="onIncrease" data-id="{{item._id}}">+</view>
+        </view>
+        <text class="item-delete" bindtap="onDelete" data-id="{{item._id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <text class="empty-icon">🧊</text>
+    <text class="empty-text">冰箱还是空的</text>
+    <text style="font-size:24rpx;color:var(--text-hint);">点击右下角 + 添加食材吧</text>
+  </view>
+
+  <view wx:if="{{showAddModal}}" class="add-modal-mask" bindtap="onModalClose" catchtouchmove="noop">
+    <view class="add-modal" catchtap="noop">
+      <view class="modal-title">🥬 添加食材</view>
+
+      <view class="modal-form-item">
+        <text class="modal-form-label">名称</text>
+        <input class="modal-form-input" placeholder="食材名称" value="{{addForm.name}}" bindinput="onAddNameInput" focus="{{showAddModal}}" />
+      </view>
+
+      <view class="modal-form-item">
+        <text class="modal-form-label">数量</text>
+        <input class="modal-form-input" type="number" placeholder="数量" value="{{addForm.quantity}}" bindinput="onAddQtyInput" />
+      </view>
+
+      <view class="modal-form-item">
+        <text class="modal-form-label">单位</text>
+        <input class="modal-form-input" placeholder="个/克/斤..." value="{{addForm.unit}}" bindinput="onAddUnitInput" />
+      </view>
+
+      <view class="modal-form-item">
+        <text class="modal-form-label">分类</text>
+        <picker range="{{categoryNames}}" value="{{addForm.categoryIndex}}" bindchange="onAddCategoryChange">
+          <view class="modal-form-picker">
+            <text>{{categoryNames[addForm.categoryIndex] || '选择分类'}}</text>
+            <text style="font-size:24rpx;color:var(--text-hint);">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="modal-form-item">
+        <text class="modal-form-label">保质期</text>
+        <picker mode="date" value="{{addForm.expiryDate}}" bindchange="onAddExpiryChange">
+          <view class="modal-form-picker">
+            <text>{{addForm.expiryDate || '选择日期'}}</text>
+            <text style="font-size:24rpx;color:var(--text-hint);">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="modal-actions">
+        <view class="modal-btn modal-btn-cancel" bindtap="onModalClose">取消</view>
+        <view class="modal-btn modal-btn-confirm" bindtap="onConfirmAdd">确认添加</view>
+      </view>
+    </view>
+  </view>
+</view>
